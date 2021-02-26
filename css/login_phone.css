@@ -1,0 +1,30 @@
+@media only screen and (max-width:1100px) {
+
+  html {
+    font-size: 14px;
+  }
+  
+  #login-info {
+    width:27rem;
+  grid-template-columns:1fr;
+  top:10rem;
+}
+
+#info{
+  display:none;
+}
+
+
+
+}
+
+@media only screen and (max-width:360px) {
+
+
+  #login-info {
+    width:24rem;
+ 
+}
+
+
+}

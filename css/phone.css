@@ -1,0 +1,35 @@
+@media screen and (max-width:1000px){
+html{
+    font-size:9.5px;
+}
+
+nav{
+    grid-template-columns: 40%;
+}
+
+#navbar-logo{
+    margin:0 auto;
+}
+
+#nabar-url{
+    margin:1.3rem 0;
+    flex-direction:column;
+}
+
+
+.intro-1{
+    grid-template-columns:90%;
+}
+
+.overv-hold{
+    grid-template-columns: repeat(1,1fr);
+    grid-row-gap:3%;
+}
+
+
+.overv {
+    width: 90%;
+    margin: 10rem auto;
+}
+
+}

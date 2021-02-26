@@ -1,0 +1,71 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    font-size:10px;
+}
+
+#contact{
+}
+
+#contact-welcome>h4{
+    margin-top:4rem;
+}
+
+#contact-known{
+    padding:2rem 0;
+    background-color: rgb(7 253 44 / 68%);
+    display:grid;
+    grid-template-columns:45% 45%;
+    align-items: center;
+    justify-content: center;
+}
+
+#contact-known p{
+    color: rgb(6 179 11);
+    font-size: 2rem;
+}
+
+#contact-known-cancel{
+
+}
+
+#contact-known-cancel{
+    display:flex;
+    justify-content: flex-end;
+}
+
+#contact-form{
+    width:90%;
+    margin:2.5rem auto;
+}
+
+#contact-form>form{
+    display:grid;
+    grid-template-columns:80%;
+    grid-row-gap:1rem;
+    align-items:center;
+    justify-content: center;
+}
+
+#contact-form>form input,textarea{
+    border: 0.2rem solid #d6c9c9;
+    padding: 0.5rem 1rem;
+    color: black;
+    font-size: 2rem;
+}
+
+#contact-form>form button{
+    width: 15rem;
+    padding: 2rem 1rem;
+    border-radius: 10rem;
+    font-size: 2.5rem;
+    text-align: center;
+    color: white;
+    background-color: #3fc0f9;
+    border: 0px;
+    margin: 0 auto
+}

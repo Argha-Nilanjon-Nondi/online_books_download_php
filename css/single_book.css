@@ -1,0 +1,61 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    font-size:10px;
+}
+
+
+#single-book{
+    width:90%;
+    margin:2rem auto;
+}
+#single-book-image{
+}
+#single-book-image>img{
+    display:block;
+    height:37rem;
+    width:33rem;
+    margin:0.5rem auto;
+}
+
+#single-book-image>h3{
+    color:black;
+    text-align:center;
+    font-size:2.5rem;
+    font-weight:lighter;
+}
+
+#single-book-des{
+    width:80%;
+    margin:2rem auto;
+}
+
+#single-book-des th{
+    width:20rem;
+}
+
+#single-book-des th,td{
+    padding:0.8rem;
+  color:black;
+  font-size:2rem;
+  border:0.2rem solid gray;
+}
+
+#single-book-download{
+    width:30rem;
+    margin:2rem auto;
+}
+
+#single-book-download a{
+    border-radius:3rem;
+    background-color:#00beff;
+    padding:1rem 3rem;
+    color:white;
+    text-align:center;
+    text-decoration:none;
+    font-size:3rem;
+}
