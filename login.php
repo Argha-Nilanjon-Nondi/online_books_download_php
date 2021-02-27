@@ -1,3 +1,60 @@
+<?php
+
+include "config.php";
+include "crypto.php";
+
+$password_err = "";
+$email_err = "";
+$error = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+  function filter_data($data) {
+    $data1 = trim($data);
+    $data1 = stripcslashes($data1);
+    $data1 = htmlspecialchars($data1);
+    return $data1;
+  }
+
+  $email = $_POST["email"];
+  $password = $_POST["password"];
+
+  if (empty($email) || empty($password)) {
+    $error = '<p class="lore-error">You must filled all data</p>';
+  } else {
+    
+
+    
+    $sql_code = "Select email,password from autho where email='$email'";
+    
+    $result1 = $conn->query($sql_code);
+
+    if ($result1->num_rows>0){
+        $result2=$result1->fetch_assoc();
+        if($password==$result2["password"]){
+        $error='<p class="lore-succ">successfully login</p>';
+        session_start();
+       
+        $obj=new Cryptography();
+        $_SESSION["login_user"]=$obj->encoding($log_var);
+        
+        
+        header("Location:http://".$_SERVER["HTTP_HOST"]."/admin_home.php");
+        exit();
+        }
+        else{
+          $error = '<p class="lore-error">Email or Pasword is incorrect</p>';
+        }
+    }
+    else{
+        $error = '<p class="lore-error">Email or Pasword is incorrect</p>';
+    }
+    }
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,18 +78,19 @@
             </p>
           </div>
           <div id="login-c-form">
-            <form action="" method="get" accept-charset="utf-8">
+            <form action="login.php" method="post" accept-charset="utf-8">
               <div class="login-field">
                 <img src="img/email.png" alt="" />
-                <input type="text" name="" id="" value="" />
+                <input type="text" name="email" id="" value="" />
               </div>
               <div class="login-field">
                 <img src="img/lock.png" alt="" />
-                <input type="password" name="" id="pass-in" value="" />
+                <input type="password" name="password" id="pass-in" value="" />
                 <img src="img/hide_pass.png" alt="" id="pass-show" />
               </div>
               <div id="login-c-btn">
                 <a href="#">Forgot password</a>
+                 <?php echo $error; ?>
                 <input type="submit" value="Sign Up" />
                 <a href="#">Already have an account <strong>Login in</strong></a>
               </div>

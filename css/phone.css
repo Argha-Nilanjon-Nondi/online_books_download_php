@@ -1,10 +1,10 @@
 @media screen and (max-width:1000px){
 html{
-    font-size:9.5px;
+    font-size:8.5px;
 }
 
 nav{
-    grid-template-columns: 40%;
+    grid-template-columns:40%;
 }
 
 #navbar-logo{
@@ -16,13 +16,25 @@ nav{
     flex-direction:column;
 }
 
+.navbar-item>a {
+  font-size: 2rem;
+}
+
+.recent-coll {
+  grid-template-columns: repeat(1,29rem);
+}
+
+.recent-coll-book a {
+  font-size:3rem;
+}
+
 
 .intro-1{
     grid-template-columns:90%;
 }
 
 .overv-hold{
-    grid-template-columns: repeat(1,1fr);
+    grid-template-columns: repeat(1,90%);
     grid-row-gap:3%;
 }
 
@@ -30,6 +42,10 @@ nav{
 .overv {
     width: 90%;
     margin: 10rem auto;
+}
+
+.overv-book{
+  grid-template-columns:repeat(2,20rem);
 }
 
 }
