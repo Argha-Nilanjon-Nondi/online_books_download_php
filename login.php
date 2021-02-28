@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         session_start();
        
         $obj=new Cryptography();
-        $_SESSION["login_user"]=$obj->encoding($log_var);
+        $_SESSION["login_user"]=$obj->encoding($logvar);
         
         
         header("Location:http://".$_SERVER["HTTP_HOST"]."/admin_home.php");

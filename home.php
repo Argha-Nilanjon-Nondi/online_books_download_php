@@ -1,3 +1,7 @@
+<?php
+include("show_books.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,13 +20,13 @@
       <div id="navbar-logo">
         <img src="img/logo.png" alt="">
       </div>
-    <div id="nabar-url">
+      <div id="nabar-url">
         <ul id="navbar-coll">
-          <li class="navbar-item active"><a href="#">Home</a></li>
-          <li class="navbar-item"><a href="#">Collection</a></li>
-          <li class="navbar-item"><a href="#">Contact</a></li>
-          <li class="navbar-item"><a href="#">About</a></li>
-          <li class="navbar-item"><a href="#">Login</a></li>
+          <li class="navbar-item active"><a href="/home.php">Home</a></li>
+          <li class="navbar-item"><a href="collection.php">Collection</a></li>
+          <li class="navbar-item"><a href="contact.php">Contact</a></li>
+          <li class="navbar-item"><a href="about.html">About</a></li>
+          <li class="navbar-item"><a href="/login.php">Login</a></li>
         </ul>
       </div>
     </nav>
@@ -77,244 +81,213 @@
     <div class="recent">
       <h4>Recently uploaded</h4>
       <div class="recent-coll">
+        <div class="recent-coll">
 
-        <!--editable start-->
-        <div class="recent-coll-book">
-          <img src="img/books/1.jpg" alt="">
-          <h3>Book name</h3>
-          <a href="#">View me</a>
-        </div>
-        <!--editable end-->
-
-        <!--editable start-->
-        <div class="recent-coll-book">
-          <img src="img/books/1.jpg" alt="">
-          <h3>Book name</h3>
-          <a href="#">View me</a>
-        </div>
-        <!--editable end-->
-        <!--editable start-->
-        <div class="recent-coll-book">
-          <img src="img/books/1.jpg" alt="">
-          <h3>Book name</h3>
-          <a href="#">View me</a>
-        </div>
-        <!--editable end-->
-        <!--editable start-->
-        <div class="recent-coll-book">
-          <img src="img/books/1.jpg" alt="">
-          <h3>Book name</h3>
-          <a href="#">View me</a>
-        </div>
-        <!--editable end-->
-        <!--editable start-->
-        <div class="recent-coll-book">
-          <img src="img/books/1.jpg" alt="">
-          <h3>Book name</h3>
-          <a href="#">View me</a>
-        </div>
-        <!--editable end-->
-        <!--editable start-->
-        <div class="recent-coll-book">
-          <img src="img/books/1.jpg" alt="">
-          <h3>Book name</h3>
-          <a href="#">View me</a>
-        </div>
-        <!--editable end-->
-      </div>
-    </div>
-  </section>
-  <!--recent end-->
-
-  <!--view start-->
-  <section>
-    <div class="overv-int">
-      <h4>Books overview</h4>
-      <!--editable start-->
-      <div class="overv">
-        <a href="#">
-          <h4>Author name</h4>
-        </a>
-        <div class="overv-hold">
-          <div class="overv-pic">
-
-            <img src="img/author/1.jpg" alt="" />
-
-          </div>
-          <div class="overv-book">
-            <!--editable start-->
-            <div class="overv-book-box">
-              <div>
-                <img src="img/books/1.jpg" alt="">
-              </div>
-            </div>
-            <!--editable end-->
-            <!--editable start-->
-            <div class="overv-book-box">
-              <div>
-                <img src="img/books/1.jpg" alt="">
-              </div>
-            </div>
-            <!--editable end-->
-            <!--editable start-->
-            <div class="overv-book-box">
-              <div>
-                <img src="img/books/1.jpg" alt="">
-              </div>
-            </div>
-            <!--editable end-->
-            <!--editable start-->
-            <div class="overv-book-box">
-              <div>
-                <img src="img/books/1.jpg" alt="">
-              </div>
-            </div>
-            <!--editable end-->
-            <!--editable start-->
-            <div class="overv-book-box">
-              <div>
-                <img src="img/books/1.jpg" alt="">
-              </div>
-            </div>
-            <!--editable end-->
-            <!--editable start-->
-            <div class="overv-book-box">
-              <div>
-                <img src="img/books/1.jpg" alt="">
-              </div>
-            </div>
-            <!--editable end-->
-          </div>
+          <?php
+          $obj = new SHOW_BOOKS(1, 5);
+          $array = $obj->most_recent();
+          foreach ($array as $elem) {
+            $data1 = $elem['book_name'];
+            $id = $elem['book'];
+            $data2 = "/books/book_cover/$id.png";
+            $data3 = $elem["no"];
+            echo("<!--editable start--><div class='recent-coll-book'><img src='$data2' ><h3>$data1</h3><a target='_blank' href='/single_post.php?book=$data3'>View me</a></div><!--editable end-->");
+          }
+          ?>
         </div>
       </div>
-      <!--editable start-->
-      <!--editable start-->
-      <div class="overv">
-        <a href="#">
-          <h4>Author name</h4>
-        </a>
-        <div class="overv-hold">
-          <div class="overv-pic">
+    </section>
+    <!--recent end-->
 
-            <img src="img/author/1.jpg" alt="" />
+    <!--view start-->
+    <section>
+      <div class="overv-int">
+        <h4>Books overview</h4>
+        <!--editable start-->
+        <div class="overv">
+          <a href="#">
+            <h4>Author name</h4>
+          </a>
+          <div class="overv-hold">
+            <div class="overv-pic">
 
-          </div>
-          <div class="overv-book">
-            <!--editable start-->
-            <div class="overv-book-box">
-              <div>
-                <img src="img/books/1.jpg" alt="">
-              </div>
-            </div>
-            <!--editable end-->
-            <!--editable start-->
-            <div class="overv-book-box">
-              <div>
-                <img src="img/books/1.jpg" alt="">
-              </div>
-            </div>
-            <!--editable end-->
-            <!--editable start-->
-            <div class="overv-book-box">
-              <div>
-                <img src="img/books/1.jpg" alt="">
-              </div>
-            </div>
-            <!--editable end-->
-            <!--editable start-->
-            <div class="overv-book-box">
-              <div>
-                <img src="img/books/1.jpg" alt="">
-              </div>
-            </div>
-            <!--editable end-->
-            <!--editable start-->
-            <div class="overv-book-box">
-              <div>
-                <img src="img/books/1.jpg" alt="">
-              </div>
-            </div>
-            <!--editable end-->
-            <!--editable start-->
-            <div class="overv-book-box">
-              <div>
-                <img src="img/books/1.jpg" alt="">
-              </div>
-            </div>
-            <!--editable end-->
-          </div>
-        </div>
-      </div>
-      <!--editable start-->
-      <!--editable start-->
-      <div class="overv">
-        <a href="#">
-          <h4>Author name</h4>
-        </a>
-        <div class="overv-hold">
-          <div class="overv-pic">
+              <img src="img/author/1.jpg" alt="" />
 
-            <img src="img/author/1.jpg" alt="" />
-
-          </div>
-          <div class="overv-book">
-            <!--editable start-->
-            <div class="overv-book-box">
-              <div>
-                <img src="img/books/1.jpg" alt="">
-              </div>
             </div>
-            <!--editable end-->
-            <!--editable start-->
-            <div class="overv-book-box">
-              <div>
-                <img src="img/books/1.jpg" alt="">
+            <div class="overv-book">
+              <!--editable start-->
+              <div class="overv-book-box">
+                <div>
+                  <img src="img/books/1.jpg" alt="">
+                </div>
               </div>
-            </div>
-            <!--editable end-->
-            <!--editable start-->
-            <div class="overv-book-box">
-              <div>
-                <img src="img/books/1.jpg" alt="">
+              <!--editable end-->
+              <!--editable start-->
+              <div class="overv-book-box">
+                <div>
+                  <img src="img/books/1.jpg" alt="">
+                </div>
               </div>
-            </div>
-            <!--editable end-->
-            <!--editable start-->
-            <div class="overv-book-box">
-              <div>
-                <img src="img/books/1.jpg" alt="">
+              <!--editable end-->
+              <!--editable start-->
+              <div class="overv-book-box">
+                <div>
+                  <img src="img/books/1.jpg" alt="">
+                </div>
               </div>
-            </div>
-            <!--editable end-->
-            <!--editable start-->
-            <div class="overv-book-box">
-              <div>
-                <img src="img/books/1.jpg" alt="">
+              <!--editable end-->
+              <!--editable start-->
+              <div class="overv-book-box">
+                <div>
+                  <img src="img/books/1.jpg" alt="">
+                </div>
               </div>
-            </div>
-            <!--editable end-->
-            <!--editable start-->
-            <div class="overv-book-box">
-              <div>
-                <img src="img/books/1.jpg" alt="">
+              <!--editable end-->
+              <!--editable start-->
+              <div class="overv-book-box">
+                <div>
+                  <img src="img/books/1.jpg" alt="">
+                </div>
               </div>
+              <!--editable end-->
+              <!--editable start-->
+              <div class="overv-book-box">
+                <div>
+                  <img src="img/books/1.jpg" alt="">
+                </div>
+              </div>
+              <!--editable end-->
             </div>
-            <!--editable end-->
           </div>
         </div>
-      </div>
-      <!--editable start-->
-    </div>
-  </section>
-  <!--view end-->
+        <!--editable start-->
+        <!--editable start-->
+        <div class="overv">
+          <a href="#">
+            <h4>Author name</h4>
+          </a>
+          <div class="overv-hold">
+            <div class="overv-pic">
 
-  <!--footer start-->
-  <footer>
-    <p>
-      All reversed by <strong>arghabooks.com</strong>
-    </p>
-  </footer>
-  <!--footer end-->
-</body>
+              <img src="img/author/1.jpg" alt="" />
+
+            </div>
+            <div class="overv-book">
+              <!--editable start-->
+              <div class="overv-book-box">
+                <div>
+                  <img src="img/books/1.jpg" alt="">
+                </div>
+              </div>
+              <!--editable end-->
+              <!--editable start-->
+              <div class="overv-book-box">
+                <div>
+                  <img src="img/books/1.jpg" alt="">
+                </div>
+              </div>
+              <!--editable end-->
+              <!--editable start-->
+              <div class="overv-book-box">
+                <div>
+                  <img src="img/books/1.jpg" alt="">
+                </div>
+              </div>
+              <!--editable end-->
+              <!--editable start-->
+              <div class="overv-book-box">
+                <div>
+                  <img src="img/books/1.jpg" alt="">
+                </div>
+              </div>
+              <!--editable end-->
+              <!--editable start-->
+              <div class="overv-book-box">
+                <div>
+                  <img src="img/books/1.jpg" alt="">
+                </div>
+              </div>
+              <!--editable end-->
+              <!--editable start-->
+              <div class="overv-book-box">
+                <div>
+                  <img src="img/books/1.jpg" alt="">
+                </div>
+              </div>
+              <!--editable end-->
+            </div>
+          </div>
+        </div>
+        <!--editable start-->
+        <!--editable start-->
+        <div class="overv">
+          <a href="#">
+            <h4>Author name</h4>
+          </a>
+          <div class="overv-hold">
+            <div class="overv-pic">
+
+              <img src="img/author/1.jpg" alt="" />
+
+            </div>
+            <div class="overv-book">
+              <!--editable start-->
+              <div class="overv-book-box">
+                <div>
+                  <img src="img/books/1.jpg" alt="">
+                </div>
+              </div>
+              <!--editable end-->
+              <!--editable start-->
+              <div class="overv-book-box">
+                <div>
+                  <img src="img/books/1.jpg" alt="">
+                </div>
+              </div>
+              <!--editable end-->
+              <!--editable start-->
+              <div class="overv-book-box">
+                <div>
+                  <img src="img/books/1.jpg" alt="">
+                </div>
+              </div>
+              <!--editable end-->
+              <!--editable start-->
+              <div class="overv-book-box">
+                <div>
+                  <img src="img/books/1.jpg" alt="">
+                </div>
+              </div>
+              <!--editable end-->
+              <!--editable start-->
+              <div class="overv-book-box">
+                <div>
+                  <img src="img/books/1.jpg" alt="">
+                </div>
+              </div>
+              <!--editable end-->
+              <!--editable start-->
+              <div class="overv-book-box">
+                <div>
+                  <img src="img/books/1.jpg" alt="">
+                </div>
+              </div>
+              <!--editable end-->
+            </div>
+          </div>
+        </div>
+        <!--editable start-->
+      </div>
+    </section>
+    <!--view end-->
+
+    <!--footer start-->
+    <footer>
+      <p>
+        All reversed by <strong>arghabooks.com</strong>
+      </p>
+    </footer>
+    <!--footer end-->
+  </body>
 
 </html>

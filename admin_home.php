@@ -1,28 +1,41 @@
 <?php
+include("show_books.php");
+$page = 1;
+if (isset($_REQUEST["page"])) {
+  global $conn;
+  $page_no = htmlspecialchars($_REQUEST["page"]);
+  $page_no = number_format($page_no);
+  $page = $page_no;
+} else {
+  $page = 1;
+}
+?>
+
+
+<?php
 
 /*check for real user start*/
 include "crypto.php";
 include "config.php";
-$error="";
-session_start();
-$obj = new Cryptography();
-$de_log_var = $obj->decoding($_SESSION["login_user"]);
-if (isset($_SESSION["login_user"])) {
-  if ($de_log_var == $log_var) {
+$error = "";
+$test = login_check();
+if ($test == true) {
 
-    /*Add a book satrt*/
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-      $book_name = $_POST["book_name"];
-      $author_name = $_POST["author_name"];
-      $subject = $_POST["subject"];
-      $summary=$_POST["summary"];
-      $book_cover = $_FILES['book_cover'];
-      $book_pdf = $_FILES["book_pdf"];
-      $target_path = "/sdcard/coding/project/online_books_download/books/";
-      
-      
-      if(empty($book_name) || empty($author_name) || empty($subject) || empty($book_cover) || empty($book_pdf) || empty($summary)){
-         $error='<div id="contact-known" style="background-color:red;">
+  /*Add a book satrt*/
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $book_name = $_POST["book_name"];
+    $author_name = $_POST["author_name"];
+    $subject = $_POST["subject"];
+    $summary = $_POST["summary"];
+    $book_cover = $_FILES['book_cover'];
+    $book_pdf = $_FILES["book_pdf"];
+    $target_path = "/sdcard/coding/project/online_books_download/books/";
+    $mydate = getdate(date("U"));
+    $str_date = "$mydate[weekday], $mydate[month] $mydate[mday], $mydate[year]";
+
+
+    if (empty($book_name) || empty($author_name) || empty($subject) || empty($book_cover) || empty($book_pdf) || empty($summary)) {
+      $error = '<div id="contact-known" style="background-color:red;">
           <div>
             <p style="color:black;">
               All data must be filled
@@ -34,19 +47,17 @@ if (isset($_SESSION["login_user"])) {
             </p>
           </div>
         </div>';
-        
-  
-      }
-      
-      else{
-        
-        $rand_num=rand();
+
+
+    } else {
+
+      $rand_num = rand();
 
       if (move_uploaded_file($book_cover['tmp_name'], $target_path."book_cover/".$rand_num.".png") and move_uploaded_file($book_pdf['tmp_name'], $target_path."book_main/".$rand_num.".pdf")) {
-      
-      $conn->query("INSERT INTO books(book_name,author_name,summary,book,subject) Values('$book_name','$author_name','$summary','$rand_num','$subject');");
-      
-        $error='<div id="contact-known">
+
+        $conn->query("INSERT INTO books(book_name,author_name,summary,book,subject,upload_date) Values('$book_name','$author_name','$summary','$rand_num','$subject','$str_date');");
+
+        $error = '<div id="contact-known">
           <div>
             <p>
               Book added successfully .
@@ -58,12 +69,12 @@ if (isset($_SESSION["login_user"])) {
             </p>
           </div>
         </div>';
-      
+
       } else {
-        $error='<div id="contact-known" style="background-color:red;">
+        $error = '<div id="contact-known" style="background-color:red;">
           <div>
             <p style="color:black;">
-              Can not add book 
+              Can not add book
             </p>
           </div>
           <div id="contact-known-cancel">
@@ -72,26 +83,18 @@ if (isset($_SESSION["login_user"])) {
             </p>
           </div>
         </div>';
-      
-        
+
+
       }
-      
-      }
-    
+
     }
-    /*Add a book end*/
 
-  } else {
-    header("Location:http://".$_SERVER["HTTP_HOST"]."/home.php");
-    exit();
   }
-
+  /*Add a book end*/
 } else {
-
   header("Location:http://".$_SERVER["HTTP_HOST"]."/home.php");
   exit();
 }
-/*check for real user end*/
 ?>
 
 <!DOCTYPE html>
@@ -116,12 +119,12 @@ if (isset($_SESSION["login_user"])) {
       </div>
       <div id="nabar-url">
         <ul id="navbar-coll">
-          <li class="navbar-item"><a href="#">Home</a></li>
-          <li class="navbar-item"><a href="#">Collection</a></li>
-          <li class="navbar-item"><a href="#">Contact</a></li>
-          <li class="navbar-item"><a href="#">About</a></li>
-          <li class="navbar-item active"><a href="#">Admin</a></li>
-          <li class="navbar-item"><a href="#">Loguot</a></li>
+          <li class="navbar-item"><a href="home.php">Home</a></li>
+          <li class="navbar-item"><a href="collection.php">Collection</a></li>
+          <li class="navbar-item"><a href="contact.php">Contact</a></li>
+          <li class="navbar-item"><a href="about.html">About</a></li>
+          <li class="navbar-item active"><a href="admin_home.php">Admin</a></li>
+          <li class="navbar-item"><a href="logout.php">Loguot</a></li>
         </ul>
       </div>
     </nav>
@@ -158,85 +161,42 @@ if (isset($_SESSION["login_user"])) {
     <div class="recent">
       <h4>Admin Home</h4>
       <div class="recent-coll">
-
-        <!--editable start-->
-        <div class="recent-coll-book">
-          <img src="img/books/1.jpg" alt="">
-          <h3>Book name</h3>
-          <a href="#">View me</a>
-          <a href="#">Edit</a>
-          <a href="#">Delete</a>
-        </div>
-        <!--editable end-->
-        <!--editable start-->
-        <div class="recent-coll-book">
-          <img src="img/books/1.jpg" alt="">
-          <h3>Book name</h3>
-          <a href="#">View me</a>
-          <a href="#">Edit</a>
-          <a href="#">Delet</a>
-        </div>
-        <!--editable end-->
-        <!--editable start-->
-        <div class="recent-coll-book">
-          <img src="img/books/1.jpg" alt="">
-          <h3>Book name</h3>
-          <a href="#">View me</a>
-          <a href="#">Edit</a>
-          <a href="#">Delet</a>
-        </div>
-        <!--editable end-->
-        <!--editable start-->
-        <div class="recent-coll-book">
-          <img src="img/books/1.jpg" alt="">
-          <h3>Book name</h3>
-          <a href="#">View me</a>
-          <a href="#">Edit</a>
-          <a href="#">Delet</a>
-        </div>
-        <!--editable end-->
-        <!--editable start-->
-        <div class="recent-coll-book">
-          <img src="img/books/1.jpg" alt="">
-          <h3>Book name</h3>
-          <a href="#">View me</a>
-          <a href="#">Edit</a>
-          <a href="#">Delet</a>
-        </div>
-        <!--editable end-->
-        <!--editable start-->
-        <div class="recent-coll-book">
-          <img src="img/books/1.jpg" alt="">
-          <h3>Book name</h3>
-          <a href="#">View me</a>
-          <a href="#">Edit</a>
-          <a href="#">Delet</a>
-        </div>
-        <!--editable end-->
-        <!--editable start-->
-        <div class="recent-coll-book">
-          <img src="img/books/1.jpg" alt="">
-          <h3>Book name</h3>
-          <a href="#">View me</a>
-          <a href="#">Edit</a>
-          <a href="#">Delet</a>
-        </div>
-        <!--editable end-->
-
-
+        <?php
+        $obj = new SHOW_BOOKS($page, 5);
+        $array = $obj->all_books();
+        foreach ($array as $elem) {
+          $data1 = $elem['book_name'];
+          $id = $elem['book'];
+          $data2 = "/books/book_cover/$id.png";
+          $data3 = $elem["no"];
+          echo("<!--editable start-->
+          <div class='recent-coll-book'>
+          <img src='$data2' >
+          <h3>$data1</h3>
+          <a target='_blank' href='/single_post.php?book=$data3'>View me</a>
+           <a target='_blank' href='/admin_update.php?book=$data3'>Edit</a>
+            <a target='_blank' href='/admin_delete.php?book=$data3'>Delete</a>
+          </div><!--editable end-->");
+        }
+        ?>
       </div>
     </div>
   </section>
   <!--admin edit end-->
   <hr>
   <!--Pagenation start-->
+  <?php
+  $a=SHOW_BOOKS::page_direction($page,"admin_home");
+  $pre_link=$a[0];
+  $next_link=$a[1];
+  ?>
   <section>
     <div class="pagenation">
       <div class="pagenation-pre">
-        <a href="">&lt;</a>
+        <a href="<?php echo $pre_link; ?>">&lt;</a>
       </div>
       <div class="pagenation-next">
-        <a href="">&gt;</a>
+        <a href="<?php echo $next_link; ?>">&gt;</a>
       </div>
     </div>
   </section>
