@@ -35,11 +35,11 @@ if (isset($_REQUEST["page"])) {
       </div>
       <div id="nabar-url">
         <ul id="navbar-coll">
-          <li class="navbar-item"><a href="#">Home</a></li>
-          <li class="navbar-item active"><a href="#">Collection</a></li>
-          <li class="navbar-item"><a href="#">Contact</a></li>
-          <li class="navbar-item"><a href="#">About</a></li>
-          <li class="navbar-item"><a href="#">Login</a></li>
+          <li class="navbar-item"><a href="home.php">Home</a></li>
+          <li class="navbar-item active"><a href="collection.php">Collection</a></li>
+          <li class="navbar-item"><a href="vontact.php">Contact</a></li>
+          <li class="navbar-item"><a href="about.html">About</a></li>
+          <li class="navbar-item"><a href="login.php">Login</a></li>
         </ul>
       </div>
     </nav>
@@ -148,7 +148,7 @@ if (isset($_REQUEST["page"])) {
         $array = $obj->most_recent();
         foreach ($array as $elem) {
           $data1 = $elem['book_name'];
-          $id = $elem['book'];
+          $id = $elem['book_cover'];
           $data2 = "/books/book_cover/$id.png";
           $data3 = $elem["no"];
           echo("<!--editable start--><div class='recent-coll-book'><img src='$data2' ><h3>$data1</h3><a target='_blank' href='/single_post.php?book=$data3'>View me</a></div><!--editable end-->");
@@ -174,7 +174,7 @@ if (isset($_REQUEST["page"])) {
         $array = $obj->all_books();
         foreach ($array as $elem) {
           $data1 = $elem['book_name'];
-          $id = $elem['book'];
+          $id = $elem['book_cover'];
           $data2 = "/books/book_cover/$id.png";
           $data3 = $elem["no"];
           echo("<!--editable start--><div class='recent-coll-book'><img src='$data2' ><h3>$data1</h3><a target='_blank' href='/single_post.php?book=$data3'>View me</a></div><!--editable end-->");
@@ -189,9 +189,9 @@ if (isset($_REQUEST["page"])) {
 
   <!--Pagenation start-->
   <?php
-  $a=SHOW_BOOKS::page_direction($page,"collection");
-  $pre_link=$a[0];
-  $next_link=$a[1];
+  $a = SHOW_BOOKS::page_direction($page, "collection");
+  $pre_link = $a[0];
+  $next_link = $a[1];
   ?>
   <section>
     <div class="pagenation">

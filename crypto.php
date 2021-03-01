@@ -26,25 +26,35 @@ echo($obj->encoding("Hello"));
 echo($obj->decoding("EcSBbkc="));*/
 
 
-function login_check(){
+function login_check() {
   global $logvar;
   session_start();
   $obj = new Cryptography();
-  $de_log_var = $obj->decoding($_SESSION["login_user"]);
+
   if (isset($_SESSION["login_user"])) {
-    if ($de_log_var==$logvar) {
-  
+    $de_log_var = $obj->decoding($_SESSION["login_user"]);
+    if ($de_log_var == $logvar) {
+
       return true;
-      
+
     } else {
-      
-     return false;
+
+      return false;
     }
 
   } else {
-return false;
-    
+    return false;
+
   }
   /*check for real user end*/
+}
+
+
+
+function filter_data($data) {
+  $data1 = trim($data);
+  $data1 = stripcslashes($data1);
+  $data1 = htmlspecialchars($data1);
+  return $data1;
 }
 ?>

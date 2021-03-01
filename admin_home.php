@@ -30,8 +30,6 @@ if ($test == true) {
     $book_cover = $_FILES['book_cover'];
     $book_pdf = $_FILES["book_pdf"];
     $target_path = "/sdcard/coding/project/online_books_download/books/";
-    $mydate = getdate(date("U"));
-    $str_date = "$mydate[weekday], $mydate[month] $mydate[mday], $mydate[year]";
 
 
     if (empty($book_name) || empty($author_name) || empty($subject) || empty($book_cover) || empty($book_pdf) || empty($summary)) {
@@ -52,10 +50,11 @@ if ($test == true) {
     } else {
 
       $rand_num = rand();
+      $rand_num2=rand();
 
-      if (move_uploaded_file($book_cover['tmp_name'], $target_path."book_cover/".$rand_num.".png") and move_uploaded_file($book_pdf['tmp_name'], $target_path."book_main/".$rand_num.".pdf")) {
+      if (move_uploaded_file($book_cover['tmp_name'], $target_path."book_cover/".$rand_num.".png") and move_uploaded_file($book_pdf['tmp_name'], $target_path."book_main/".$rand_num2.".pdf")) {
 
-        $conn->query("INSERT INTO books(book_name,author_name,summary,book,subject,upload_date) Values('$book_name','$author_name','$summary','$rand_num','$subject','$str_date');");
+        $conn->query("INSERT INTO books(book_name,author_name,summary,subject,book_cover,book_pdf) Values('$book_name','$author_name','$summary','$subject','$rand_num','$rand_num2');");
 
         $error = '<div id="contact-known">
           <div>
@@ -141,14 +140,14 @@ if ($test == true) {
       </div>
       <div id="contact-form">
         <form action="" method="post" enctype="multipart/form-data">
-          <input type="name" name="book_name" id="" placeholder="Type Book name">
-          <input type="text" name="author_name" id="" placeholder="Author Name">
-          <input type="text" name="subject" id="" placeholder="Type your subject">
+          <input type="name" name="book_name" id="" placeholder="Type Book name" required>
+          <input type="text" name="author_name" id="" placeholder="Author Name" required>
+          <input type="text" name="subject" id="" placeholder="Type your subject" required>
           <input placeholder="Pdf Book"disabled="true" />
-          <input type="file" name="book_pdf" placeholder="Book pdf" id="">
+          <input type="file" name="book_pdf" placeholder="Book pdf" id="" required>
           <input placeholder="Book Cover" disabled="true" />
-          <input type="file" name="book_cover" id="">
-          <textarea name="summary" id="" cols="30" rows="10" placeholder="What is the Sammary"></textarea>
+          <input type="file" name="book_cover" id="" required>
+          <textarea name="summary" id="" cols="30" rows="10" placeholder="What is the Sammary" required></textarea>
           <button type="submit">Add Book</button>
         </form>
       </div>
@@ -166,7 +165,7 @@ if ($test == true) {
         $array = $obj->all_books();
         foreach ($array as $elem) {
           $data1 = $elem['book_name'];
-          $id = $elem['book'];
+          $id = $elem['book_cover'];
           $data2 = "/books/book_cover/$id.png";
           $data3 = $elem["no"];
           echo("<!--editable start-->
@@ -175,7 +174,7 @@ if ($test == true) {
           <h3>$data1</h3>
           <a target='_blank' href='/single_post.php?book=$data3'>View me</a>
            <a target='_blank' href='/admin_update.php?book=$data3'>Edit</a>
-            <a target='_blank' href='/admin_delete.php?book=$data3'>Delete</a>
+            <a target='_blank' href='/admin_delete.php?confirm=$data3'>Delete</a>
           </div><!--editable end-->");
         }
         ?>

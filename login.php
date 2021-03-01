@@ -7,14 +7,12 @@ $password_err = "";
 $email_err = "";
 $error = "";
 
+$test = login_check();
+if ($test == false) {
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-  function filter_data($data) {
-    $data1 = trim($data);
-    $data1 = stripcslashes($data1);
-    $data1 = htmlspecialchars($data1);
-    return $data1;
-  }
+  
 
   $email = $_POST["email"];
   $password = $_POST["password"];
@@ -37,7 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
        
         $obj=new Cryptography();
         $_SESSION["login_user"]=$obj->encoding($logvar);
-        
+        $now = time();
+$_SESSION['discard_after'] = $now + 9000;
         
         header("Location:http://".$_SERVER["HTTP_HOST"]."/admin_home.php");
         exit();
@@ -52,7 +51,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 }
-
+}
+else {
+  header("Location:http://".$_SERVER["HTTP_HOST"]."/admin_home.php");
+  exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -81,11 +84,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <form action="login.php" method="post" accept-charset="utf-8">
               <div class="login-field">
                 <img src="img/email.png" alt="" />
-                <input type="text" name="email" id="" value="" />
+                <input type="text" name="email" id="" value="" required/>
               </div>
               <div class="login-field">
                 <img src="img/lock.png" alt="" />
-                <input type="password" name="password" id="pass-in" value="" />
+                <input type="password" name="password" id="pass-in" value="" required/>
                 <img src="img/hide_pass.png" alt="" id="pass-show" />
               </div>
               <div id="login-c-btn">
